@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Fine Multiproprietà nel Calcio Italiano</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          rgba(5, 20, 10, 0.75),
+          rgba(0, 0, 0, 0.92)
+        ),
+        url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=2000&q=85")
+        center/cover no-repeat;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+
+      background-size: 40px 40px;
+
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      width: min(90%, 850px);
+      padding: 45px 35px;
+
+      background: rgba(8, 15, 10, 0.82);
+      backdrop-filter: blur(10px);
+
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+
+      box-shadow:
+        0 25px 80px rgba(0,0,0,.6);
+
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      margin-bottom: 35px;
+      color: #b7c7b9;
+      font-size: 1.1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    tr {
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    tr:last-child {
+      border-bottom: none;
+    }
+
+    td {
+      padding: 18px 20px;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+    }
+
+    td:first-child {
+      text-align: left;
+      font-weight: bold;
+      color: #d8e6d9;
+    }
+
+    td:last-child {
+      text-align: right;
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    }
+
+    .highlight {
+      color: #8cff66;
+    }
+
+    .footer {
+      margin-top: 35px;
+      font-size: 0.9rem;
+      color: #9fa9a1;
+    }
+
+    .coffee {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 20px;
+
+      background: #ffdd00;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+
+      border-radius: 10px;
+
+      transition: transform .2s ease;
+    }
+
+    .coffee:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 18px;
+      }
+
+      td {
+        padding: 15px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>Fine multiproprietà</h1>
+
+    <div class="subtitle">
+      Countdown alla scadenza del 1 luglio 2028
+    </div>
+
+    <table>
+
+      <tr>
+        <td><strong>Fine multiproprietà</strong></td>
+        <td class="highlight">01/Jul/2028</td>
+      </tr>
+
+      <tr>
+        <td><strong>Settimane rimanenti</strong></td>
+        <td id="weeks">...</td>
+      </tr>
+
+      <tr>
+        <td><strong>Giorni rimanenti</strong></td>
+        <td id="days">...</td>
+      </tr>
+
+      <tr>
+        <td><strong>Ore rimanenti</strong></td>
+        <td id="hours">...</td>
+      </tr>
+
+      <tr>
+        <td><strong>Minuti rimanenti</strong></td>
+        <td id="minutes">...</td>
+      </tr>
+
+      <tr>
+        <td><strong>Secondi rimanenti</strong></td>
+        <td id="seconds">...</td>
+      </tr>
+
+    </table>
+
+    <div class="footer">
+      Il tempo scorre.
+    </div>
+
+    <!-- SOSTITUISCI IL LINK CON IL TUO -->
+    <a
+      class="coffee"
+      href="https://www.buymeacoffee.com/TUOUSERNAME"
+      target="_blank"
+      rel="noopener"
+    >
+      ☕ Offrimi un caffè
+    </a>
+
+  </main>
+
+
+  <script>
+
+    /*
+      1 luglio 2028, ore 00:00:00
+      +02:00 perché in Italia sarà in vigore l'ora legale.
+    */
+
+    const targetDate =
+      new Date("2028-07-01T00:00:00+02:00").getTime();
+
+
+    function updateCountdown() {
+
+      const now = new Date().getTime();
+
+      let difference = targetDate - now;
+
+      if (difference < 0) {
+        difference = 0;
+      }
+
+      const seconds = Math.floor(difference / 1000);
+
+      const minutes = Math.floor(
+        difference / (1000 * 60)
+      );
+
+      const hours = Math.floor(
+        difference / (1000 * 60 * 60)
+      );
+
+      const days = Math.floor(
+        difference / (1000 * 60 * 60 * 24)
+      );
+
+      const weeks = Math.floor(
+        difference / (1000 * 60 * 60 * 24 * 7)
+      );
+
+
+      document.getElementById("seconds").textContent =
+        seconds.toLocaleString("it-IT");
+
+      document.getElementById("minutes").textContent =
+        minutes.toLocaleString("it-IT");
+
+      document.getElementById("hours").textContent =
+        hours.toLocaleString("it-IT");
+
+      document.getElementById("days").textContent =
+        days.toLocaleString("it-IT");
+
+      document.getElementById("weeks").textContent =
+        weeks.toLocaleString("it-IT");
+    }
+
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+
+  </script>
+
+</body>
+</html>
