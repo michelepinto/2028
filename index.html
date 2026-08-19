@@ -404,11 +404,6 @@
     <table>
 
       <tr>
-        <td>Settimane rimanenti</td>
-        <td id="weeks">...</td>
-      </tr>
-
-      <tr>
         <td>Giorni rimanenti</td>
         <td id="days">...</td>
       </tr>
@@ -485,11 +480,6 @@
         difference / (1000 * 60 * 60 * 24)
       );
 
-      const weeks = Math.floor(
-        difference / (1000 * 60 * 60 * 24 * 7)
-      );
-
-
       document.getElementById("seconds").textContent =
         seconds.toLocaleString("it-IT");
 
@@ -501,9 +491,6 @@
 
       document.getElementById("days").textContent =
         days.toLocaleString("it-IT");
-
-      document.getElementById("weeks").textContent =
-        weeks.toLocaleString("it-IT");
     }
 
 
