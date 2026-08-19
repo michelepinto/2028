@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Fine Multiproprietà nel Calcio Italiano</title>
+  <title>No alla Multiproprietà nel Calcio Italiano</title>
 
   <style>
     * {
@@ -19,37 +19,165 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      overflow-x: hidden;
 
       background:
         linear-gradient(
-          rgba(5, 20, 10, 0.75),
-          rgba(0, 0, 0, 0.92)
+          rgba(5, 20, 10, 0.72),
+          rgba(0, 0, 0, 0.93)
         ),
         url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=2000&q=85")
-        center/cover no-repeat;
+        center/cover fixed no-repeat;
     }
 
     body::before {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
 
       background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
 
       background-size: 40px 40px;
-
       pointer-events: none;
     }
 
+    /* =========================
+       PULSANTE INFORMAZIONI
+    ========================== */
+
+    .info-wrapper {
+      position: fixed;
+      top: 25px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    .info-button {
+      width: 52px;
+      height: 52px;
+
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.85);
+
+      background: rgba(0,0,0,.5);
+      color: white;
+
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition:
+        transform .2s ease,
+        background .2s ease,
+        color .2s ease;
+    }
+
+    .info-button:hover,
+    .info-button:focus {
+      transform: scale(1.1);
+      background: #8cff66;
+      color: #071007;
+      outline: none;
+    }
+
+    .info-popup {
+      position: absolute;
+      top: 68px;
+      right: 0;
+
+      width: min(90vw, 480px);
+
+      padding: 25px;
+
+      background: rgba(10, 17, 12, .97);
+      backdrop-filter: blur(12px);
+
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 16px;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.65);
+
+      color: #e5e5e5;
+
+      font-size: 15px;
+      line-height: 1.6;
+
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+
+      transition:
+        opacity .25s ease,
+        transform .25s ease,
+        visibility .25s ease;
+    }
+
+    /* Freccetta sopra il popup */
+
+    .info-popup::before {
+      content: "";
+      position: absolute;
+
+      top: -9px;
+      right: 17px;
+
+      width: 16px;
+      height: 16px;
+
+      background: rgba(10, 17, 12, .97);
+
+      border-top: 1px solid rgba(255,255,255,.22);
+      border-left: 1px solid rgba(255,255,255,.22);
+
+      transform: rotate(45deg);
+    }
+
+    .info-wrapper:hover .info-popup,
+    .info-wrapper:focus-within .info-popup,
+    .info-wrapper.active .info-popup {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .info-popup p {
+      margin-top: 0;
+      margin-bottom: 18px;
+    }
+
+    .info-popup p:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* =========================
+       CONTENUTO PRINCIPALE
+    ========================== */
+
     .container {
       position: relative;
+      z-index: 1;
+
       width: min(90%, 850px);
+
+      margin: 100px auto 60px;
       padding: 45px 35px;
 
-      background: rgba(8, 15, 10, 0.82);
+      background: rgba(8, 15, 10, 0.84);
       backdrop-filter: blur(10px);
 
       border: 1px solid rgba(255,255,255,0.15);
@@ -63,15 +191,23 @@
 
     h1 {
       margin: 0 0 12px;
-      font-size: clamp(2rem, 5vw, 4rem);
+
+      font-size: clamp(2rem, 4vw, 4rem);
       letter-spacing: -2px;
+      text-transform: uppercase;
     }
 
     .subtitle {
       margin-bottom: 35px;
-      color: #b7c7b9;
+
+      color: #8cff66;
       font-size: 1.1rem;
     }
+
+
+    /* =========================
+       TABELLA COUNTDOWN
+    ========================== */
 
     table {
       width: 100%;
@@ -101,118 +237,220 @@
 
     td:last-child {
       text-align: right;
+
       font-family: "Courier New", monospace;
       font-weight: bold;
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    }
 
-    .highlight {
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
       color: #8cff66;
     }
 
+
+    /* =========================
+       FOOTER E CAFFÈ
+    ========================== */
+
     .footer {
       margin-top: 35px;
-      font-size: 0.9rem;
-      color: #9fa9a1;
+
+      font-size: 0.95rem;
+      color: #b7c7b9;
     }
 
     .coffee {
       display: inline-block;
+
       margin-top: 18px;
-      padding: 12px 20px;
+      padding: 13px 24px;
 
       background: #ffdd00;
       color: #000;
+
       text-decoration: none;
       font-weight: bold;
 
       border-radius: 10px;
 
-      transition: transform .2s ease;
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
     }
 
     .coffee:hover {
       transform: scale(1.05);
+
+      box-shadow:
+        0 8px 30px rgba(255,221,0,.25);
     }
 
+
+    /* =========================
+       MOBILE
+    ========================== */
+
     @media (max-width: 600px) {
+
+      .info-wrapper {
+        top: 15px;
+        right: 15px;
+      }
+
+      .info-button {
+        width: 46px;
+        height: 46px;
+
+        font-size: 24px;
+      }
+
+      .info-popup {
+        position: fixed;
+
+        top: 75px;
+        right: 15px;
+
+        width: calc(100vw - 30px);
+        max-height: calc(100vh - 100px);
+
+        overflow-y: auto;
+
+        font-size: 14px;
+      }
+
+      .info-popup::before {
+        right: 20px;
+      }
+
       .container {
+        width: calc(100% - 30px);
+
+        margin-top: 90px;
+        margin-bottom: 30px;
+
         padding: 30px 18px;
       }
 
       td {
-        padding: 15px 10px;
+        padding: 15px 8px;
       }
+
+      td:first-child {
+        max-width: 55%;
+      }
+
     }
+
   </style>
 </head>
 
+
 <body>
+
+
+  <!-- PULSANTE ? E POPUP -->
+
+  <div class="info-wrapper">
+
+    <button
+      class="info-button"
+      aria-label="Informazioni sul sito"
+      aria-expanded="false"
+      type="button"
+    >
+      ?
+    </button>
+
+    <div class="info-popup">
+
+      <p>
+        Questa pagina è dedicata a tutti i tifosi calpestati dalla
+        multiproprietà nel calcio italiano: uno spazio per unirsi,
+        farsi forza e non mollare, tenendo duro fino alla scadenza
+        del 1° luglio 2028.
+      </p>
+
+      <p>
+        Lo facciamo anche per scongiurare eventuali proroghe o
+        cambiamenti al regolamento che possano essere architettati
+        per salvaguardare gli interessi dei potenti del calcio,
+        come Lotito, De Laurentiis e Malagò.
+      </p>
+
+      <p>
+        La multiproprietà svilisce identità, storia e appartenenza,
+        trasformando club e tifoserie in pedine di strategie comuni.
+        Oggi può colpire alcuni tifosi, domani tutti: normalizzarla
+        rischia di diventare la pietra tombale della passione e di
+        questo sport.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- CONTENUTO PRINCIPALE -->
 
   <main class="container">
 
-    <h1>Fine multiproprietà</h1>
+    <h1>2028</h1>
+
+	<h1>No alla multiproprietà</h1>
 
     <div class="subtitle">
-      Countdown alla scadenza del 1 luglio 2028
+      Countdown alla fine della multiproprietà nel calcio italiano del 1° luglio 2028
     </div>
+
 
     <table>
 
       <tr>
-        <td><strong>Fine multiproprietà</strong></td>
-        <td class="highlight">01/Jul/2028</td>
-      </tr>
-
-      <tr>
-        <td><strong>Settimane rimanenti</strong></td>
+        <td>Settimane rimanenti</td>
         <td id="weeks">...</td>
       </tr>
 
       <tr>
-        <td><strong>Giorni rimanenti</strong></td>
+        <td>Giorni rimanenti</td>
         <td id="days">...</td>
       </tr>
 
       <tr>
-        <td><strong>Ore rimanenti</strong></td>
+        <td>Ore rimanenti</td>
         <td id="hours">...</td>
       </tr>
 
       <tr>
-        <td><strong>Minuti rimanenti</strong></td>
+        <td>Minuti rimanenti</td>
         <td id="minutes">...</td>
       </tr>
 
       <tr>
-        <td><strong>Secondi rimanenti</strong></td>
+        <td>Secondi rimanenti</td>
         <td id="seconds">...</td>
       </tr>
 
     </table>
 
-    <div class="footer">
-      Il tempo scorre.
-    </div>
 
-    <!-- SOSTITUISCI IL LINK CON IL TUO -->
-    <a
-      class="coffee"
-      href="https://www.buymeacoffee.com/TUOUSERNAME"
-      target="_blank"
-      rel="noopener"
-    >
-      ☕ Offrimi un caffè
-    </a>
+    <div class="footer">
+      ❤️ Il tempo scorre, non molliamo.
+    </div>
 
   </main>
 
 
+
   <script>
 
+    /* =========================
+       COUNTDOWN
+    ========================== */
+
     /*
-      1 luglio 2028, ore 00:00:00
-      +02:00 perché in Italia sarà in vigore l'ora legale.
+      1 luglio 2028 alle 00:00
+      Ora italiana.
+
+      In quella data l'Italia sarà
+      in ora legale: UTC+02:00
     */
 
     const targetDate =
@@ -225,11 +463,15 @@
 
       let difference = targetDate - now;
 
+
       if (difference < 0) {
         difference = 0;
       }
 
-      const seconds = Math.floor(difference / 1000);
+
+      const seconds = Math.floor(
+        difference / 1000
+      );
 
       const minutes = Math.floor(
         difference / (1000 * 60)
@@ -269,7 +511,54 @@
 
     setInterval(updateCountdown, 1000);
 
+
+
+    /* =========================
+       POPUP MOBILE / CLICK
+    ========================== */
+
+    const infoWrapper =
+      document.querySelector(".info-wrapper");
+
+    const infoButton =
+      document.querySelector(".info-button");
+
+
+    infoButton.addEventListener("click", function () {
+
+      const isActive =
+        infoWrapper.classList.toggle("active");
+
+      infoButton.setAttribute(
+        "aria-expanded",
+        isActive
+      );
+
+    });
+
+
+    /*
+      Chiude il popup cliccando
+      fuori dal pulsante
+    */
+
+    document.addEventListener("click", function (event) {
+
+      if (!infoWrapper.contains(event.target)) {
+
+        infoWrapper.classList.remove("active");
+
+        infoButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      }
+
+    });
+
   </script>
+
 
 </body>
 </html>
